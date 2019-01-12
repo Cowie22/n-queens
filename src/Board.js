@@ -144,14 +144,40 @@
     // Major Diagonals - go from top-left to bottom-right
     // --------------------------------------------------------------
     //
+
+    // _getFirstRowColumnIndexForMajorDiagonalOn: function(rowIndex, colIndex) {
+    //   return colIndex - rowIndex;
+    // },
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //valid range of input will be -n + 1  to  n -1
+      //we have to loop through based on that input
+      var k = majorDiagonalColumnIndexAtFirstRow;
+      var count = 0;
+
+        for (let j = 0; j < this.attributes.n; j++) {
+          if (k >= 0 || k < this.attributes.n) {
+            if (this.get(j)[k] === 1) {
+              count++
+            }
+          }
+          k++;
+        }
+        if (count > 1) {
+          return true;
+        }
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
-    hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+    hasAnyMajorDiagonalConflicts: function() {  
+      var len = this.attributes.n
+      for (let i = -len + 1; i < len; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
