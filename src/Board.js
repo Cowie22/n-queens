@@ -152,16 +152,16 @@
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
       //valid range of input will be -n + 1  to  n -1
       //we have to loop through based on that input
-      var k = majorDiagonalColumnIndexAtFirstRow;
+      var col = majorDiagonalColumnIndexAtFirstRow;
       var count = 0;
 
-        for (let j = 0; j < this.attributes.n; j++) {
-          if (k >= 0 || k < this.attributes.n) {
-            if (this.get(j)[k] === 1) {
+        for (let r = 0; r < this.attributes.n; r++) {
+          if (col >= 0 || col < this.attributes.n) {
+            if (this.get(r)[col] === 1) {
               count++
             }
           }
-          k++;
+          col++;
         }
         if (count > 1) {
           return true;
@@ -187,14 +187,34 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var len = this.attributes.n;
+      var col = minorDiagonalColumnIndexAtFirstRow;
+      var count = 0;
+      for (let row = 0; row < len; row++) {
+        if (col >= 0 || col < len) {
+          if (this.get(row)[col] === 1) {
+            count++
+          }
+        }
+        col--;
+      }
+      if (count > 1) {
+        return true;
+      }
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
-    }
+      var len = this.attributes.n;
 
+      for (let col = -len + 2; col < len + 2; col++) {
+        if (this.hasMinorDiagonalConflictAt(col)) {
+          return true;
+        }
+      }
+      return false;
+    },
     /*--------------------  End of Helper Functions  ---------------------*/
 
 
