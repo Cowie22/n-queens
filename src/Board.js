@@ -130,7 +130,13 @@
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (let i = 0; i < this.attributes.n; i++) {
+        // var rows = this.attributes.n[i];
+        if (this.hasColConflictAt(i)) {
+          return true;
+        } 
+      }
+      return false;
     },
 
 
