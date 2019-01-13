@@ -45,8 +45,12 @@ window.countNRooksSolutions = function(n) {
     if (rooksPlaced === n) {
       solutionCount++;
     } else {
-      for (let )
-      board.togglePiece(rowTracker, colTracker);
+      for (let i = 0; i < boardRows.length; i++) {
+        board.togglePiece(0, i);
+        if (!board.hasRowConflictAt(0) || board.hasAnyColConflicts()) {
+            
+        }
+      }
       //when a row is selected via a move, remove possibility of said row with rocktracker++
       //if board does not have any col, it is a valid move
       if (!board.hasAnyColConflicts()) {
