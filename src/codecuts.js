@@ -1,51 +1,33 @@
-/*           _
-   ___  ___ | |_   _____ _ __ ___
-  / __|/ _ \| \ \ / / _ \ '__/ __|
-  \__ \ (_) | |\ V /  __/ |  \__ \
-  |___/\___/|_| \_/ \___|_|  |___/
-
-*/
-
-// hint: you'll need to do a full-search of all possible arrangements of pieces!
-// (There are also optimizations that will allow you to skip a lot of the dead search space)
-// take a look at solversSpec.js to see what the tests are expecting
-
-
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
-
-
-
-window.findNRooksSolution = function(n) {
-  var aBoard = new Board({n: n})
-  for (let i = 0; i < n; i++) {
-    aBoard.togglePiece(i, i);
-  }
-
-  // var board = new Board([[1,0,0],[0,1,0],[0,0,1]])
-
-  //[[1,0,0],[0,1,0],[0,0,1]]
-
-  //toggle down the zero major diagonal gurantees solution each time no matter how big n is
-
-  var solution = aBoard.rows()
-
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
-};
-
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
+
    
   var board = new Board({"n": n});
+
+
   var solutionCount = 0; //fixme
+
+    //we want a rowTracker that will optimize the solution
+  var rowTracker = 0;
+
+  //and a col tracker that lets us know when moves have been invalidated;
+  var colTracker = 0;
+
+  var numMoves = 0; //num of valid moves & putting piece down
   var boardRows = board.rows();
 
-  function findSol(boardRows, rooksPlaced) {
 
-    if (rooksPlaced === n) {
+
+  function findSol(boardRows, colTracker) {
+      //base case in regards to picking a move
+      //if numof valid moves equals board size
+    if (numMoves === n) {
+      //we have a solution! increment count
       solutionCount++;
+      //but we cannot stop
+      
     } else {
-      for (let )
+      //otherwise, place a move at the row and col trackers
       board.togglePiece(rowTracker, colTracker);
       //when a row is selected via a move, remove possibility of said row with rocktracker++
       //if board does not have any col, it is a valid move
@@ -102,21 +84,5 @@ window.countNRooksSolutions = function(n) {
     //
   //
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
-};
-
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
-window.findNQueensSolution = function(n) {
-  var solution = undefined; //fixme
-
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
-};
-
-// return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
-window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
-
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
