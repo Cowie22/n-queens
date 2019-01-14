@@ -50,18 +50,7 @@ window.findNRooksSolution = function(n) {
       return row.slice();
     });
   });
-  var aBoard = new Board({n: n})
-  for (let i = 0; i < n; i++) {
-    aBoard.togglePiece(i, i);
-  }
 
-  // var board = new Board([[1,0,0],[0,1,0],[0,0,1]])
-
-  //[[1,0,0],[0,1,0],[0,0,1]]
-
-  //toggle down the zero major diagonal gurantees solution each time no matter how big n is
-
-  var solution = aBoard.rows()
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
