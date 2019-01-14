@@ -41,6 +41,7 @@ window.solutionFinder = function(rowIndex, n, board, isValid, callback) {
 
 
 window.findNRooksSolution = function(n) {
+<<<<<<< HEAD
 
  var board = new Board({'n': n}); 
 
@@ -50,6 +51,20 @@ window.findNRooksSolution = function(n) {
       return row.slice();
     });
   });
+=======
+  var aBoard = new Board({n: n})
+  for (let i = 0; i < n; i++) {
+    aBoard.togglePiece(i, i);
+  }
+
+  // var board = new Board([[1,0,0],[0,1,0],[0,0,1]])
+
+  //[[1,0,0],[0,1,0],[0,0,1]]
+
+  //toggle down the zero major diagonal gurantees solution each time no matter how big n is
+
+  var solution = aBoard.rows()
+>>>>>>> b508ba25993c6b4179af02f25e87cd41fbf32d31
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
@@ -57,6 +72,7 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
+<<<<<<< HEAD
   var solutionCount = 0;
   var board = new Board({'n': n}); 
 
@@ -64,7 +80,31 @@ window.countNRooksSolutions = function(n) {
   solutionFinder(0, n, board, "hasAnyRooksConflicts",function() {
     solutionCount++;
   });
+=======
+   
+  var board = new Board({"n": n});
+  var solutionCount = 0; //fixme
+  var boardRows = board.rows();
+  var solutionKeeper = [];
+>>>>>>> b508ba25993c6b4179af02f25e87cd41fbf32d31
 
+  function findSol(row, rooksPlaced) {
+    if (rooksPlaced === n) {
+      solutionKeeper.push(boardRows);
+      return;
+    }
+    for (let i = 0; i < boardRows.length; i++) {
+      board.togglePiece(row, rooksPlaced);
+      if (!board.hasAnyColConflicts(i)) {
+        solutionCount++;
+      } else {
+        board.togglePiece(row, rooksPlaced);
+        findSol(row + 1, rooksPlaced + 1);
+    }
+  }
+}
+findSol(0, 0);
+console.log(solutionKeeper)
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
  
